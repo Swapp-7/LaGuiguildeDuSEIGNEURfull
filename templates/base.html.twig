@@ -5,10 +5,199 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+            <style>
+                /* Arrière-plan médiéval */
+                body {
+                    background: linear-gradient(135deg, #1a0a00 0%, #2d1a0e 50%, #1a0a00 100%);
+                    min-height: 100vh;
+                    font-family: 'Lato', sans-serif;
+                    color: #e8d5b0;
+                }
+
+                /* En-tête principal */
+                h1 {
+                    font-family: 'Cinzel', serif;
+                    color: #c9a84c;
+                    text-shadow: 0 0 20px rgba(201, 168, 76, 0.5), 2px 2px 4px #000;
+                    letter-spacing: 3px;
+                    margin: 2rem 0;
+                    font-size: 2.2rem;
+                }
+
+                /* Conteneur principal */
+                .container, body > * {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 1rem 2rem;
+                }
+
+                /* Tableau */
+                .table {
+                    background: rgba(20, 10, 5, 0.85);
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 0 30px rgba(0,0,0,0.7), 0 0 60px rgba(201, 168, 76, 0.1);
+                    border: 1px solid #5a3e1b;
+                    color: #e8d5b0;
+                }
+
+                /* En-têtes de colonnes */
+                .table thead tr {
+                    background: linear-gradient(90deg, #3d1f00, #5a3000, #3d1f00);
+                    border-bottom: 2px solid #c9a84c;
+                }
+
+                .table thead th {
+                    color: #c9a84c;
+                    font-family: 'Cinzel', serif;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    padding: 1rem 0.75rem;
+                    border: none;
+                    text-transform: uppercase;
+                    font-size: 0.8rem;
+                }
+
+                /* Lignes du tableau */
+                .table tbody tr {
+                    border-bottom: 1px solid rgba(90, 62, 27, 0.4);
+                    transition: background 0.2s ease, transform 0.1s ease;
+                }
+
+                /* Survol grisé / doré */
+                .table-hover tbody tr:hover {
+                    background: rgba(201, 168, 76, 0.12) !important;
+                    transform: scale(1.002);
+                    cursor: pointer;
+                }
+
+                .table tbody td {
+                    padding: 0.8rem 0.75rem;
+                    border: none;
+                    vertical-align: middle;
+                }
+
+                /* Lien sur le nom */
+                .table a {
+                    color: #c9a84c;
+                    text-decoration: none;
+                    font-weight: 400;
+                    transition: color 0.2s;
+                }
+
+                .table a:hover {
+                    color: #f0d080;
+                    text-decoration: underline;
+                }
+
+                /* Bouton Modifier */
+                .table a.btn-sm, .table td:last-child a {
+                    background: rgba(90, 62, 27, 0.6);
+                    border: 1px solid #c9a84c;
+                    color: #c9a84c;
+                    padding: 0.25rem 0.75rem;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    transition: all 0.2s;
+                }
+
+                .table td:last-child a:hover {
+                    background: #c9a84c;
+                    color: #1a0a00;
+                    text-decoration: none;
+                }
+
+                /* Texte Dame en gras doré */
+                td strong {
+                    color: #f0d080;
+                    font-weight: 700;
+                }
+
+                /* Bouton Nouveau Character */
+                .btn-primary {
+                    background: linear-gradient(135deg, #7a4a10, #c9a84c);
+                    border: 1px solid #c9a84c;
+                    color: #1a0a00;
+                    font-family: 'Cinzel', serif;
+                    font-weight: 700;
+                    letter-spacing: 2px;
+                    padding: 0.6rem 2rem;
+                    border-radius: 6px;
+                    text-transform: uppercase;
+                    transition: all 0.3s;
+                    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+                    margin: 1.5rem auto;
+                    display: inline-block;
+                }
+
+                .btn-primary:hover {
+                    background: linear-gradient(135deg, #c9a84c, #f0d080);
+                    box-shadow: 0 6px 25px rgba(201, 168, 76, 0.5);
+                    transform: translateY(-2px);
+                    color: #1a0a00;
+                }
+
+                /* Message aucun résultat */
+                .table tbody tr td[colspan] {
+                    color: #8a7050;
+                    font-style: italic;
+                    padding: 2rem;
+                }
+
+                /* Barre de navigation */
+                .guild-nav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: linear-gradient(90deg, #1a0a00, #3d1f00, #1a0a00);
+                    border-bottom: 2px solid #c9a84c;
+                    padding: 0.75rem 2rem;
+                }
+
+                .guild-nav-brand {
+                    font-family: 'Cinzel', serif;
+                    color: #c9a84c;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    letter-spacing: 2px;
+                }
+
+                .guild-nav-links {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                }
+
+                .guild-nav-user {
+                    color: #7a6040;
+                    font-size: 0.85rem;
+                    font-style: italic;
+                }
+
+                .guild-nav-link {
+                    color: #c9a84c;
+                    text-decoration: none;
+                    font-family: 'Cinzel', serif;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    border: 1px solid #5a3e1b;
+                    padding: 0.3rem 0.9rem;
+                    border-radius: 4px;
+                    transition: all 0.2s;
+                }
+
+                .guild-nav-link:hover {
+                    background: #c9a84c;
+                    color: #1a0a00;
+                }
+            </style>
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         {% endblock %}
 
         {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
@@ -19,6 +208,19 @@
         {% endif %}
     </head>
     <body>
+        {# Barre de navigation #}
+        <nav class="guild-nav">
+            <span class="guild-nav-brand">⚔️ La Guilde des Seigneurs</span>
+            <div class="guild-nav-links">
+                {% if app.user %}
+                    <span class="guild-nav-user">{{ app.user.email }}</span>
+                    <a href="{{ path('app_logout') }}" class="guild-nav-link">Se déconnecter</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="guild-nav-link">Se connecter</a>
+                {% endif %}
+            </div>
+        </nav>
+
         {% block body %}{% endblock %}
     </body>
 </html>

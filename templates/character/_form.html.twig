@@ -1,0 +1,208 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'character-form'}}) }}
+
+    {# --- Section Identité --- #}
+    <fieldset class="form-section">
+        <legend class="form-section-title">⚔️ Identité</legend>
+        <div class="row g-3">
+            <div class="col-md-6">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_help(form.name) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form.surname) }}
+                {{ form_widget(form.surname) }}
+                {{ form_errors(form.surname) }}
+                {{ form_help(form.surname) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_label(form.kind) }}
+                {{ form_widget(form.kind) }}
+                {{ form_errors(form.kind) }}
+                {{ form_help(form.kind) }}
+            </div>
+        </div>
+    </fieldset>
+
+    {# --- Section Origine & Savoir --- #}
+    <fieldset class="form-section">
+        <legend class="form-section-title">📜 Origine & Savoir</legend>
+        <div class="row g-3">
+            <div class="col-md-6">
+                {{ form_label(form.caste) }}
+                {{ form_widget(form.caste) }}
+                {{ form_errors(form.caste) }}
+                {{ form_help(form.caste) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form.knowledge) }}
+                {{ form_widget(form.knowledge) }}
+                {{ form_errors(form.knowledge) }}
+                {{ form_help(form.knowledge) }}
+            </div>
+        </div>
+    </fieldset>
+
+    {# --- Section Statistiques --- #}
+    <fieldset class="form-section">
+        <legend class="form-section-title">🎯 Statistiques</legend>
+        <div class="row g-3">
+            <div class="col-md-6">
+                {{ form_label(form.intellingence) }}
+                <div class="input-with-bar">
+                    {{ form_widget(form.intellingence) }}
+                    <div class="stat-bar" id="bar-intelligence"></div>
+                </div>
+                {{ form_errors(form.intellingence) }}
+                {{ form_help(form.intellingence) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form.strenght) }}
+                <div class="input-with-bar">
+                    {{ form_widget(form.strenght) }}
+                    <div class="stat-bar" id="bar-strenght"></div>
+                </div>
+                {{ form_errors(form.strenght) }}
+                {{ form_help(form.strenght) }}
+            </div>
+        </div>
+    </fieldset>
+
+    {# --- Section Apparence --- #}
+    <fieldset class="form-section">
+        <legend class="form-section-title">🖼️ Apparence</legend>
+        <div class="row g-3">
+            <div class="col-12">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+                {{ form_errors(form.image) }}
+                {{ form_help(form.image) }}
+            </div>
+        </div>
+    </fieldset>
+
+    {# --- Bouton de soumission --- #}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+
+{{ form_end(form) }}
+
+<style>
+    /* Sections du formulaire */
+    .form-section {
+        background: rgba(20, 10, 5, 0.6);
+        border: 1px solid #5a3e1b;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-section-title {
+        font-family: 'Cinzel', serif;
+        color: #c9a84c;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 0 0.5rem;
+        width: auto;
+        float: none;
+        border-bottom: 1px solid #5a3e1b;
+        margin-bottom: 1rem;
+    }
+
+    /* Labels */
+    .character-form label {
+        color: #c9a84c;
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Inputs */
+    .character-form .form-control,
+    .character-form .form-select {
+        background: rgba(10, 5, 0, 0.8);
+        border: 1px solid #5a3e1b;
+        color: #e8d5b0;
+        border-radius: 4px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .character-form .form-control:focus,
+    .character-form .form-select:focus {
+        background: rgba(20, 10, 0, 0.9);
+        border-color: #c9a84c;
+        box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        color: #f0d080;
+        outline: none;
+    }
+
+    .character-form .form-control::placeholder {
+        color: #5a4a30;
+    }
+
+    .character-form .form-select option {
+        background: #2d1a0e;
+        color: #e8d5b0;
+    }
+
+    /* Texte d'aide */
+    .character-form .form-text {
+        color: #7a6040;
+        font-size: 0.75rem;
+        font-style: italic;
+    }
+
+    /* Erreurs */
+    .character-form .invalid-feedback,
+    .character-form .form-error-message {
+        color: #e05050;
+        font-size: 0.8rem;
+    }
+
+    /* Barre de stat visuelle */
+    .input-with-bar {
+        position: relative;
+    }
+
+    .stat-bar {
+        height: 4px;
+        background: linear-gradient(90deg, #c9a84c, #f0d080);
+        border-radius: 2px;
+        margin-top: 4px;
+        width: 0%;
+        transition: width 0.4s ease;
+    }
+
+    /* Bouton submit */
+    .form-actions {
+        text-align: center;
+        padding-top: 0.5rem;
+    }
+</style>
+
+<script>
+    // Barres de progression pour Intelligence et Force
+    document.addEventListener('DOMContentLoaded', function () {
+        function updateBar(inputId, barId) {
+            const input = document.getElementById(inputId);
+            const bar   = document.getElementById(barId);
+            if (!input || !bar) return;
+            const update = () => {
+                const val = Math.min(Math.max(parseInt(input.value) || 0, 0), 250);
+                bar.style.width = (val / 250 * 100) + '%';
+            };
+            input.addEventListener('input', update);
+            update();
+        }
+        updateBar('character_intellingence', 'bar-intelligence');
+        updateBar('character_strenght',      'bar-strenght');
+    });
+</script>

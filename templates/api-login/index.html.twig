@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Connexion – La Guilde des Seigneurs{% endblock %}
+
+{% block body %}
+<div class="col-4 offset-4">
+
+    {# En-tête #}
+    <h1 class="text-center">⚔️ Connexion</h1>
+    <p class="text-center login-subtitle">Entrez vos identifiants pour accéder à la Guilde</p>
+
+    {# Message d'erreur d'authentification #}
+    {% if error %}
+        <div class="alert-error">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+    {# Formulaire de login #}
+    <form action="{{ path('api_login') }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="form-group">
+            <label for="inputEmail">Adresse email</label>
+            <input type="email" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password"
+                   id="inputPassword"
+                   name="_password"
+                   class="form-control"
+                   placeholder="••••••••"
+                   autocomplete="current-password"
+                   required>
+        </div>
+
+        {# Bouton de connexion #}
+        <div class="text-center" style="margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary">
+                Se connecter
+            </button>
+        </div>
+    </form>
+
+    {# Lien vers l'inscription #}
+    <p class="text-center" style="margin-top: 1rem; color: #7a6040; font-size: 0.9rem;">
+        Pas encore de compte ?
+        <a href="{{ path('app_register') }}" style="color: #c9a84c;">S'inscrire</a>
+    </p>
+
+</div>
+
+<style>
+    .login-subtitle {
+        color: #7a6040;
+        font-style: italic;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+
+    .login-form {
+        background: rgba(20, 10, 5, 0.7);
+        border: 1px solid #5a3e1b;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: #c9a84c;
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+
+    .form-group .form-control {
+        width: 100%;
+        background: rgba(10, 5, 0, 0.8);
+        border: 1px solid #5a3e1b;
+        color: #e8d5b0;
+        border-radius: 4px;
+        padding: 0.55rem 0.75rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group .form-control:focus {
+        background: rgba(20, 10, 0, 0.9);
+        border-color: #c9a84c;
+        box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        color: #f0d080;
+        outline: none;
+    }
+
+    .form-group .form-control::placeholder {
+        color: #5a4a30;
+    }
+
+    .alert-error {
+        background: rgba(150, 30, 30, 0.3);
+        border: 1px solid #8b2020;
+        color: #f08080;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.2rem;
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}

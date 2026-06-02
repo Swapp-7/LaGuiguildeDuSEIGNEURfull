@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ character.name }} – La Guilde des Seigneurs{% endblock %}
+
+{% block body %}
+    <div class="col-6 offset-3">
+
+        {# En-tête avec nom du personnage #}
+        <h1 class="text-center">{{ character.name }}</h1>
+
+        {# Portrait du personnage #}
+        {% if character.image %}
+            <div class="text-center" style="margin-bottom: 1.5rem;">
+                <img src="https://la-guilde-des-seigneurs.com/medias/{{ character.image }}"
+                     alt="Portrait de {{ character.name }}"
+                     class="character-portrait">
+            </div>
+        {% endif %}
+
+        {# Présentation narrative du personnage #}
+        <div class="character-bio">
+            <p>Je m'appelle <strong>{{ character.name }}</strong>.</p>
+            <p>Je fais partie de <strong>La Guilde des Seigneurs</strong> !</p>
+            <p>Je suis un <strong>{{ character.kind }}</strong> de la caste <strong>{{ character.caste }}</strong>.</p>
+            <p>Mon surnom est <strong>{{ character.surname }}</strong>.</p>
+            <p>Mon intelligence est de <strong>{{ character.intelligence }}</strong> et ma force de <strong>{{ character.strength }}</strong>.</p>
+            <p>Je suis assez fort dans <strong>{{ character.knowledge }}</strong>.</p>
+        </div>
+
+        {# Modification #}
+        <p class="character-date">Dernière modification : {{ character.modification ? character.modification|date('d/m/Y') : 'N/A' }}</p>
+
+        {# Boutons d'action #}
+        <div class="show-actions">
+            <a href="{{ path('api_character_index') }}" class="btn-action btn-back">
+                ← Retour à la liste
+            </a>
+            <a href="{{ path('api_character_edit', {'identifier': character.identifier}) }}" class="btn-action btn-edit">
+                ✏️ Modifier
+            </a>
+            {{ include('api-character/_delete_form.html.twig') }}
+        </div>
+
+    </div>
+
+<style>
+    .character-portrait {
+        max-width: 250px;
+        border-radius: 8px;
+        border: 2px solid #c9a84c;
+        box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+    }
+
+    .show-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-action {
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0.45rem 1.2rem;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.2s;
+        border: 1px solid;
+    }
+
+    .btn-back {
+        color: #7a6040;
+        border-color: #5a3e1b;
+        background: transparent;
+    }
+
+    .btn-back:hover { color: #c9a84c; border-color: #c9a84c; }
+
+    .btn-edit {
+        color: #c9a84c;
+        border-color: #c9a84c;
+        background: rgba(201, 168, 76, 0.1);
+    }
+
+    .btn-edit:hover { background: #c9a84c; color: #1a0a00; }
+
+    .show-actions form button {
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0.45rem 1.2rem;
+        border-radius: 4px;
+        border: 1px solid #8b2020;
+        background: rgba(150, 30, 30, 0.2);
+        color: #e05050;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .show-actions form button:hover { background: #8b2020; color: #fff; }
+
+    .character-bio {
+        background: rgba(20, 10, 5, 0.6);
+        border: 1px solid #5a3e1b;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 1rem;
+        line-height: 2;
+        font-size: 1.05rem;
+        color: #e8d5b0;
+    }
+
+    .character-bio p { margin: 0; }
+
+    .character-bio strong { color: #f0d080; }
+
+    .character-date {
+        text-align: right;
+        color: #7a6040;
+        font-size: 0.8rem;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}

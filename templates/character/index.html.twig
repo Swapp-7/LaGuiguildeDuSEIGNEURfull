@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Liste des Personnages{% endblock %}
+
+{% block body %}
+    {# En-tête de la page #}
+    <h1 class="text-center">Liste des Personnages</h1>
+
+    {# Tableau des personnages #}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                {# Colonnes : kind en premier, id/image/identifier supprimés #}
+                <th class="text-center">Kind</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Slug</th>
+                <th class="text-center">Surname</th>
+                <th class="text-center">Caste</th>
+                <th class="text-center">Knowledge</th>
+                <th class="text-center">Intelligence</th>
+                <th class="text-center">Strength</th>
+                <th class="text-center">Création</th>
+                <th class="text-center">Modification</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {# Boucle sur les personnages #}
+        {% for character in characters %}
+            <tr>
+                {# Kind en premier, en gras si "Dame" #}
+                <td class="text-center">
+                    {% if character.kind == 'Dame' %}
+                        <strong>{{ character.kind }}</strong>
+                    {% else %}
+                        {{ character.kind }}
+                    {% endif %}
+                </td>
+                {# Clic sur name pour afficher le personnage #}
+                <td class="text-center">
+                    <a href="{{ path('app_character_show', {'id': character.id}) }}">{{ character.name }}</a>
+                </td>
+                <td class="text-center">{{ character.slug }}</td>
+                <td class="text-center">{{ character.surname }}</td>
+                <td class="text-center">{{ character.caste }}</td>
+                <td class="text-center">{{ character.knowledge }}</td>
+                <td class="text-center">{{ character.intellingence }}</td>
+                <td class="text-center">{{ character.strenght }}</td>
+                {# Dates formatées en jour/mois/année #}
+                <td class="text-center">{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
+                <td class="text-center">{{ character.modification ? character.modification|date('d/m/Y') : '' }}</td>
+                {# Actions : show supprimé, edit renommé #}
+                <td class="text-center">
+                    <a href="{{ path('app_character_edit', {'id': character.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11" class="text-center">Aucun personnage trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# Bouton centré pour créer un nouveau personnage #}
+    <div class="text-center">
+        <a href="{{ path('app_character_new') }}" class="btn btn-primary">Nouveau Character</a>
+    </div>
+{% endblock %}
