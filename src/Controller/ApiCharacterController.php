@@ -33,12 +33,12 @@ final class ApiCharacterController extends AbstractController
         ]);
     }
 
-    #[Route('/most-hp', name: 'api_character_most-hp', methods: ['GET'])]
-    public function characterLife(Request $request): Response
+    #[Route('/life/{reqHP}', name: 'api_character_most-hp', methods: ['GET'])]
+    public function characterLife(Request $request, int $reqHP): Response
     {
         $response = $this->client->request(
             'GET',
-            $this->getParameter('app.api_url') . '/characters/most-hp',
+            $this->getParameter('app.api_url') . '/characters/life/' . $reqHP,
             [
                 'auth_bearer' => $request->getSession()->get('token'),
             ]
@@ -46,6 +46,7 @@ final class ApiCharacterController extends AbstractController
 
         return $this->render('api-character/most_hp.html.twig', [
             'characters' => $response->toArray(),
+            'reqHP' => $reqHP,
         ]);
     }
 
