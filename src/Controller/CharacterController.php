@@ -29,16 +29,17 @@ final class CharacterController extends AbstractController
         ]);
     }
 
-    #[Route('/most-hp', name: 'app_character_most_hp', methods: ['GET'])]
-    public function mostHp(CharacterRepository $characterRepository): Response
+    #[Route('/life/{reqHP}', name: 'app_character_most_hp', methods: ['GET'])]
+    public function mostHp(CharacterRepository $characterRepository, int $reqHP): Response
     {
         $characters = array_filter(
             $characterRepository->findAll(),
-            fn(Character $c) => $c->getLife() > 100
+            fn(Character $c) => $c->getLife() > $reqHP
         );
 
         return $this->render('character/most_hp.html.twig', [
             'characters' => $characters,
+            'reqHP' => $reqHP,
         ]);
     }
 
